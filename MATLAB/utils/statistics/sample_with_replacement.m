@@ -1,4 +1,4 @@
-function x = discretesample(p, n)
+function x = sample_with_replacement(p, n)
 % Samples from a discrete distribution
 %
 %   x = discretesample(p, n)

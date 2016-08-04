@@ -1,6 +1,6 @@
 # nflab_scripts
 
-This is a (versioned) repository of all our shared scripts. Big projects (e.g. operating system for robot, or image analysis platform) should be versioned and managed in their respective, dedicated, repository.
+This is a (versioned) repository of all our shared scripts. Big projects (e.g. operating system for robot, or image analysis platform) should be managed in a dedicated repository.
 
 The repository is indexed by the scripting language, and then by sub directories as required, e.g.: “utils”, “vis”(ualization), etc.
 

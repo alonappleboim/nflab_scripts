@@ -1,19 +1,20 @@
 function C = bsconv2(S, ker, B, trunc)
-% C = bsconv2(S, ker, B)
+% Arguments:
+%  S - a sparse matrix. assumed to be highly rectengular (e.g. 1e2 X 1e6).
+%  ker - the kernel for convultion, assumed to be much smaller than S
+%  B - batch size, along larger dimension of S
+%  trunc - after each convolution, truncate this fraction of the non-zero
+%          entries (to keep certain matrix sparsity). default is a quarter 
 %
-% S - a sparse matrix. assumed to be highly rectengular (e.g. 1e2 X 1e6).
-% ker - the kernel for convultion, assumed to be much smaller than S
-% B - batch side, along larger dimension of S
-% trunc - after each convolution, tuncate this fractin of the non-zero
-%         entries (to keep certain matrix sparsity). default is a quarter 
-%
-% Like sconv2 but suitable for convolution of large sparse matrices
+% Returns:
+% C - the resulting convolution.
 %
 % See also: sconv2
+
 L = size(S,1);
 K = size(ker, 2);
 if ~exist('trunc','var') || isempty(trunc), trunc = min(.9,max(ker(:))*K*2); end
-if ~exist('B','var') || isempty(B), B = round(1e8/(L*K)); end; % the 1e8 relates to memory constraints of the system.
+if ~exist('B','var') || isempty(B), B = round(1e8/(L*K)); end; % the 1e8 is due to memory constraints of the system.
 S = [sparse(L,K),S,sparse(L,K)]; %pad
 C = recursive_conv(S,ker,B,K,trunc); %solve
 end

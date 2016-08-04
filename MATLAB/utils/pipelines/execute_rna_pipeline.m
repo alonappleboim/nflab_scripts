@@ -4,10 +4,10 @@ function all = execute_rna_pipeline(abspath)
 % A matrix of genesXsamples is called "all" and placed in the abspath.
 % A folder with bedgraph tracks is generated in abspath.
 %
-% abspath - root directory, containing a directory per sample.
+% abspath - experiment root directory, containing a directory per sample.
 %
-
-PPATH = '/cs/bd/RNAseq_pipeline';
+conf = CONFIG();
+PPATH = conf('rnaseq pipeline path');
 GP = load([PPATH,'/GP']);
 GP = GP.GP;
 fs = dir(abspath);

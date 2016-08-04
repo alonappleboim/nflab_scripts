@@ -3,15 +3,16 @@ function [S] = file2strct(fname, delim, empty)
 %
 % Arguments:
 %  fname - A file name from which data is read. It is assumed that first
-%          2 lines are a header describing field names and types.
+%          2 lines are a header describing field names and types: %s,%d,
+%          etc.
 %  delim - Defaults to tab.
 %  empty - A numeric value with any string of this list will be read as
-%          NaN. Defaults to {'na'}.
-
+%          NaN. Defaults to {'na','','nan'}.
+%
 
 
 if ~exist('delim','var') || isempty(delim) delim = '\t'; end
-if ~exist('empty','var') || isempty(empty) empty = {'na'}; end
+if ~exist('empty','var') || isempty(empty) empty = {'na','','nan'}; end
 
 [fid, err] = fopen(fname);
 assert(fid > 0, sprintf('could not open file name. - %s', err));

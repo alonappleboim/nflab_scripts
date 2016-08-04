@@ -1,5 +1,5 @@
 function [ord] = dendrorder(Z)
-%DENDROGRAM Get order of leaves in dendrogram
+% DENDRORDER Get order of leaves in dendrogram
 %
 
 m = size(Z,1)+1;

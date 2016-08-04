@@ -1,8 +1,23 @@
-function [D] = read_bed_files(folder)%, blocksize)
+function [D] = read_bed_files(folder, sparse)
 % read BED files from directory into a struct
-% if nargin < 2, blocksize = 5e4; end
+% This function is built to read SacCer bed files from a directory into a
+% single matlab struct.
+% 
+% Arguments:
+%  folder - path to folder containing bed files
+%  sparse - if true (default=False), returned struct will contain a sparse
+%           matrix.
+%
+% Returns:
+%  D - struct with fields:
+%   chrs - chromosome names
+%   tracks - track names, simply the bed file names
+%   files - full paths to original bed files.
+%   data - a 1x17 cell array, with each entry corresonding to a single
+%          chromsome. Each entry contains a matrix of TxL_i where T is the
+%          number of tracks, and L(i) is the length of chromosome i.
 
-%parse files
+%parse file names
 filedata = dir(folder);
 files = {};
 track_names = {};
@@ -17,7 +32,8 @@ end
 T = length(track_names);
 
 %prep chrs
-load ~/Dropbox/genomic_data/saccer3_chrlens
+C = CONFIG();
+chr_len = load(C('saccer3_chrlens_path'));
 CN = length(keys(chr_len));
 chrs = cell(CN,1);
 for ci = 1:CN

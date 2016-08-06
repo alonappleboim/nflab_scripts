@@ -1,19 +1,19 @@
 function [seqmat] = seqs2mat(seqarr, varargin)
-% Efficient claculation of kmer representation.
+% Convert strings of arbitrary length to a matrix. Useful for efficient
+% kmerization.
 %
 % Arguments:
-%  seqarr - a cell array of sequences (if seqs don't have the same
-%           length, only prefixes upto the minimal sequence length are
-%           considered.
+%  seqarr - a cell array of sequences.
+%
 % Name/Value Arguments:
 %  len - #columns of the output matrix. 'min' and 'max' can also be given,
 %        in which case the minimal/maximal sequence length is used. shorter
 %        sequences will be padded. default is the .95 length percentile
 %        of the sequences. 
-%  pad_char - with which defficient sequences are padded {'_'}.
+%  pad_char - with which defficient sequences are padded. default = '_'.
 %
 % Returns:
-%  seqmat - a matrix of chars.
+%  seqmat - a char matrix.
 % 
 
 %validations and other stuff

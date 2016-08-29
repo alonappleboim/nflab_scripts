@@ -1,19 +1,21 @@
 function [ev, exi] = absmax(X, dim)
-%
 % Return the signed maximal absoulte value (and index) along any dimension.
-% Examples:
-%  extreme_value([10,2,-17]) = [[10,2,-17],[1,1,1]]. 
-%  extreme_value([10,2,-17]') = [-17,3]. 
-%  extreme_value([10,2,-17],2) = [-17,3].
 %
+% Written by Alon (2015).
+% 
 % Arguments:
 %  X - an array.
 %  dim - dimension. default = 1.
 %
 % Returns:
-% the value of the absoluteley extreme entry along dim, and the index along
-% dim in which it is found.
+%   the value of the absoluteley extreme entry along dim, and the index along
+%   dim in which it is found.
 %
+% Examples:
+%  extreme_value([10,2,-17]); % = {[10,2,-17],[1,1,1]}. 
+%  extreme_value([10,2,-17]'); % = {-17,3}. 
+%  extreme_value([10,2,-17],2); % = {-17,3}.
+
 
 if ~exist('dim','var') || isempty(dim), dim = 1; end
 S = size(X);

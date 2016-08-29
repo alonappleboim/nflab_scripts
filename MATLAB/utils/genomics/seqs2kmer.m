@@ -1,6 +1,8 @@
 function [s2k, kmer, ab, pad] = seqs2kmer(seqs, k, varargin)
 % Efficient calculation of kmer representation.
 %
+% Written by Alon (2015).
+%
 % Arguments:
 %  seqs - a cell array of sequences, or a matrix of chars.
 %  k - the kmer size.

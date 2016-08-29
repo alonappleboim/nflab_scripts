@@ -1,4 +1,4 @@
-function [h] = dscatter(X,Y, varargin)
+function [h, nidx] = dscatter(X,Y, varargin)
 % DSCATTER creates a scatter plot coloured by density.
 %
 %   DSCATTER(X,Y) creates a scatterplot of X and Y at the locations

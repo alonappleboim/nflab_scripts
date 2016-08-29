@@ -1,5 +1,6 @@
 function X = nearPD(X, varargin)
 % nearPD.m
+%  (project a matrix to the semi-definite matrices space)
 %  This function is a Matlab rip-off of an R function called 'nearPD' in
 %  the Matrix package:
 %  http://rweb.stat.umn.edu/R/library/Matrix/html/nearPD.html

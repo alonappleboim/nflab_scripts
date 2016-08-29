@@ -1,4 +1,4 @@
-function ly = lognormpdf(x,mu,sigma)
+function ly = log_normpdf(x,mu,sigma)
 %LOGNORMPDF log of the Normal probability density function (pdf).
 %   LY = LOGNORMPDF(X,MU,SIGMA) returns the log of the pdf of the normal
 %   distribution with mean MU and standard deviation SIGMA, evaluated at

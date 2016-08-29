@@ -1,4 +1,4 @@
-function [en_p, dep_p] = hygepval(x,m,k,n)
+function [en_p, dep_p] = hyge_pval(x,m,k,n)
 %HYGEPVAL Hypergeometric p value for enrichment (and depletion).
 %   P = HYGEPVAL(X,M,K,N) returns the hypergeometric pvalue with parameters
 %   M, K, and N with the values in X.

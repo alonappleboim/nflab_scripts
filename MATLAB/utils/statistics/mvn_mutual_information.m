@@ -14,5 +14,4 @@ X = X(~nidx,:);
 Y = Y(~nidx,:);
 gmi = .5 * log2(det(nancov(X))) + .5 * log2(det(nancov(Y))) - ...
       .5 * log2(det(nancov([X,Y])));
-% gmi = gmi.sum(~nidx);
 end

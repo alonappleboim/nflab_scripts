@@ -12,7 +12,7 @@ function [F,ctrs1,ctrs2] = density2(x,y, varargin)
 % Enhancing scatterplots with smoothed densities
 % Bioinformatics, Mar 2004; 20: 623 - 628.
 
-args = parse_namevalue_pairs(struct('lambda', 10, 'nbins', 200),varargin);
+args = parse_namevalue_pairs(struct('lambda', 10, 'nbins', 200), varargin);
 if isscalar(args.nbins), args.nbins = [args.nbins, args.nbins]; end;
 
 nidx = ~(isnan(x) | isnan(y));

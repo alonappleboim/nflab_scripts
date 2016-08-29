@@ -1,7 +1,6 @@
 function [dX,err] = matexpder(X, prec)
 %derivative of a matrix exponential up to precision prec (X should be sqaure)
 %
-% uses the fact that
 %
 %determine maximal power for approximation
 if nargin < 2, prec = 1e-7; end;

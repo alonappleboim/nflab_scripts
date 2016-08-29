@@ -1,15 +1,17 @@
-function [] = strct2file(S, fname, header, delim)
-% Save a delimited file to a struct.
+function [] = strct2file(S, fname, varargin)
+% Save a struct to a delimited file.
 %
 % Arguments:
-%  S - The struct, assumed to be a colelction of string/number vectors.
+%  S - The struct, assumed to be a collection of string/number vectors with
+%      the same length.
 %  fname - A file name to which data is written.
+%
+% Name/Value Arguments:
 %  header - a boolean indiciating whether a header should be written.
-%           Default = true.
-%  delim - Defaults to tab.
+%           default = true.
+%  delim - File delimiter. defulat = tab.
 
-if ~exist('delim','var') || isempty(delim) delim = '\t'; end
-if ~exist('header','var') || isempty(header) header = true; end
+args = parse_namevalue_pairs(struct('header',true,'delim','\t'), varargin);
 
 [fid, err] = fopen(fname, 'w');
 assert(fid > 0, sprintf('could not open file name. - %s', err));
@@ -21,13 +23,13 @@ F = length(fields);
 N = size(S.(fields{1}),1);
 values = cell(N,F);
 
-format = repmat(['%s', delim], 1, F);
-format = [format(1:end-length(delim)), '\n'];
+format = repmat(['%s', args.delim], 1, F);
+format = [format(1:end-length(args.delim)), '\n'];
 dtypes = {};
 for fi = 1:F
     fname = fields{fi};
-    assert(size(S.(fname),1) == N, 'Size mismatch in fields');
     assert(size(S.(fname),2) == 1, 'fields should be column vectors');
+    assert(size(S.(fname),1) == N, 'Size mismatch in fields');
     data = S.(fname);
     f = '%s';
     if isnumeric(data)
@@ -38,7 +40,7 @@ for fi = 1:F
     values(:,fi) = data;
 end
 
-if header
+if args.header
     %write header
     fprintf(fid, format, fields{:});
     fprintf(fid, format, dtypes{:});

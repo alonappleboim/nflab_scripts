@@ -2,11 +2,13 @@ function S = logsum(X, dims)
 %LOGSUM executes: S = log(sum(exp(X)), along dims in a precision-aware
 % manner.
 %
-%   Arguments:
-%       X - a matrix in log space.
-%       dims - the dimensions along which summation is performed,
-%              defaults to 1, i.e. rows.
-if ~exist('dims','var') || isempty(dims) dims = 1; end
+% Arguments:
+%  X - a matrix in log space.
+%  dims - The dimensions along which summation is performed,
+%         defaults to 1, i.e. rows.
+%
+
+if ~exist('dims','var') || isempty(dims), dims = 1; end
 S = X;
 sdims = sort(dims, 'descend');
 for d = sdims

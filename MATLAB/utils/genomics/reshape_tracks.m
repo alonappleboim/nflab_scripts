@@ -37,7 +37,11 @@ for i = 1:length(annot.pos)
     d = tracks{ci}(:,fr:di:to);
     fr = di*(fr-pi)-args.range(1)+1;
     to = di*(to-pi)-args.range(1)+1;
-    meta(:,fr:to,i) = d;
+    if fr < to
+        meta(:,fr:to,i) = d;
+    else
+        disp([fr,to])
+    end
 end
 
 end

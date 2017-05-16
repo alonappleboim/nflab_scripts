@@ -60,10 +60,10 @@ else  % ERRORBAR('V6',...)
     
     x = get(h(1),'xdata');		% Get xdata from errorbar plot
     
-    x(4:9:end) = x(1:9:end)-w/2;	% Change xdata with respect to the chosen ratio
-    x(7:9:end) = x(1:9:end)-w/2;
-    x(5:9:end) = x(1:9:end)+w/2;
-    x(8:9:end) = x(1:9:end)+w/2;
+%     x(4:9:end) = x(1:9:end)-w/2;	% Change xdata with respect to the chosen ratio
+%     x(7:9:end) = x(1:9:end)-w/2;
+%     x(5:9:end) = x(1:9:end)+w/2;
+%     x(8:9:end) = x(1:9:end)+w/2;
 
     set(h(1),'xdata',x(:))	% Change error bars on the figure
     

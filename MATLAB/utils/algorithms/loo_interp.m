@@ -1,4 +1,4 @@
-function [iy, ix, fitinfo] = loo_interp(y, x, varargin)
+function [iy, ix, err] = loo_interp(y, x, varargin)
 % leave-one-out interpolation.
 %
 % Arguments:
@@ -8,7 +8,7 @@ function [iy, ix, fitinfo] = loo_interp(y, x, varargin)
 % Name/Value Arguments:
 %  wout - Weighted outliers. When calculating the model, whether every
 %         partition will be weighted by its relative error, or will all
-%         paritions be treated as equals (effectiely gives less weight to
+%         partitions be treated as equals (effectiely gives less weight to
 %         outliers).
 %  type - interpolation type: linear/spline/pchip (see MATLAB's interp).
 %         default = pchip.
@@ -32,11 +32,11 @@ def = struct('wout', true, 'type', 'pchip',...
              'ix', linspace(x(1), x(end), 3*M), 'ss', true, ...
              'warn', false);
 args = parse_namevalue_pairs(def, varargin);
-assert(all(x(1) <= args.ix & args.ix <= x(end)), ...
-       'ix should lie in the interval [min(x), max(x)]');
+% assert(all(x(1) <= args.ix & args.ix <= x(end)), ...
+%        'ix should lie in the interval [min(x), max(x)]');
 if args.ss
     x = [x(1)-(x(end)-x(1)), x, x(:,end)+(x(end)-x(1))];
-    y = [y(:,1), y, y(:,end)];
+    y = [y(:,1), y, y(:,1)];
 end
 ix = args.ix;
 warning on;
@@ -66,6 +66,5 @@ else
     iy = nansum(iy.*w,3);
 end
 
-fitinfo = struct();
-fitinfo.err = nanmean(err,3);
+err = nanmean(err,3);
 end

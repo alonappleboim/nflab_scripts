@@ -1,4 +1,4 @@
-function tiles = tile_area(N, varargin)
+function axs = tile_area(N, varargin)
 % Tile the area with N tiles.
 % Arguments:
 %  N - number of tiles, if a scalar, optimal ratio between rows and columns
@@ -9,7 +9,7 @@ function tiles = tile_area(N, varargin)
 %         x/y). default - [.02, .05, .96, .9]. 
 %   
 %  gap - a gap between all tiles and area periphary in percent of area.
-%        default - .05 of minimum(height/width).
+%        default - .02 of minimum(height/width).
 %  hgap - horizontal gap in percent of width (overrides gap)
 %  vgap - vertical gap - in percent of height (overrdies gap)
 %  margin - margins around tile area (default is gap).
@@ -21,7 +21,8 @@ function tiles = tile_area(N, varargin)
 %  smargin - south margin, overrides vmargin only on bottom side of area.
 %
 % Returns:
-%  A cell array of tiles in (blx,bly,w,h) format
+%  A struct array with pos, and ax fields, where ax is a function that
+%  new axes at pos.
 %
 defaults = struct('area', [.02, .05, .96, .9], 'gap',-1, ...
                   'margin', -1, 'hgap', -1, 'vgap', -1, ...
@@ -32,6 +33,7 @@ blx = args.area(1); bly = args.area(2);
 w = args.area(3); h = args.area(4);
 args = set_defaults(args, w, h);
 
+axs = struct();
 if isscalar(N)
     pos = get(gcf, 'position');
     [R, C] = optimal_subplot_dims(N, w*pos(3), h*pos(4));
@@ -39,20 +41,21 @@ else
     R = N(1); C = N(2);
 end
 
-tiles = cell(R, C);
 tilew = (w - (args.wmargin + args.emargin + args.hgap*(C-1))) / C;
 tileh = (h - (args.nmargin + args.smargin + args.vgap*(R-1))) / R;
 for ri = 1:R
     for ci = 1:C
-        tiles{ri,ci} = [blx + args.emargin + (ci-1)*(tilew+args.hgap), ...
-                        bly + h - args.nmargin - ri*tileh - (ri-1)*args.vgap, ...
-                        tilew, tileh];
+        pos = [blx + args.emargin + (ci-1)*(tilew+args.hgap), ...
+               bly + h - args.nmargin - ri*tileh - (ri-1)*args.vgap, ...
+               tilew, tileh];
+        axs(ri,ci).pos = pos;
+        axs(ri,ci).ax = @()axes('position',pos);
     end
 end
 end
 
 function args = set_defaults(args, w, h)
-if args.gap == -1, args.gap = .05*min(w,h); end;
+if args.gap == -1, args.gap = .02*min(w,h); end;
 if args.hgap == -1, args.hgap = w*args.gap; end;
 if args.vgap == -1, args.vgap = h*args.gap; end;
 if args.margin == -1, args.margin = args.gap; end;

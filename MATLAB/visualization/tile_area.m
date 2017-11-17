@@ -7,7 +7,6 @@ function axs = tile_area(N, varargin)
 % Name/Value Arguments:
 %  area - a rectangle with (blx, bly, width, height). (blx/y = bottom left
 %         x/y). default - [.02, .05, .96, .9]. 
-%   
 %  gap - a gap between all tiles and area periphary in percent of area.
 %        default - .02 of minimum(height/width).
 %  hgap - horizontal gap in percent of width (overrides gap)
@@ -21,8 +20,9 @@ function axs = tile_area(N, varargin)
 %  smargin - south margin, overrides vmargin only on bottom side of area.
 %
 % Returns:
-%  A struct array with pos, and ax fields, where ax is a function that
-%  new axes at pos.
+%  A struct array shaped as on screen, with fields:
+%    pos - axes position on figure
+%    ax - the axes
 %
 defaults = struct('area', [.02, .05, .96, .9], 'gap',-1, ...
                   'margin', -1, 'hgap', -1, 'vgap', -1, ...
@@ -45,11 +45,11 @@ tilew = (w - (args.wmargin + args.emargin + args.hgap*(C-1))) / C;
 tileh = (h - (args.nmargin + args.smargin + args.vgap*(R-1))) / R;
 for ri = 1:R
     for ci = 1:C
-        pos = [blx + args.emargin + (ci-1)*(tilew+args.hgap), ...
+        pos = [blx + args.wmargin + (ci-1)*(tilew+args.hgap), ...
                bly + h - args.nmargin - ri*tileh - (ri-1)*args.vgap, ...
                tilew, tileh];
         axs(ri,ci).pos = pos;
-        axs(ri,ci).ax = @()axes('position',pos);
+        axs(ri,ci).ax = axes('position', pos);
     end
 end
 end

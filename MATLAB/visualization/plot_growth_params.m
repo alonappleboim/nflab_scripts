@@ -5,7 +5,7 @@ args = parse_namevalue_pairs(struct('log', false), varargin);
 R = 8;
 C = 12;
 clf;
-axpos = tile_area([8, 12], 'gap', 0.01);
+axs = tile_area([8, 12], 'gap', 0.01);
 
 i = 1;
 if args.log
@@ -15,7 +15,7 @@ yl = [quantile(min(od),.01), quantile(max(od),.85)];
 xl = [0, max(t)];
 for ci = 1:12
     for ri = 1:R
-        ax = axes('position', axpos{ri,ci});
+        ax = axs(ri,ci).ax();
         hold on;
         plot(t, od(:,i));
         if ri == R
